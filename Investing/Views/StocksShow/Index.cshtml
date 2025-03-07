@@ -1,0 +1,31 @@
+﻿@model Investing.Models.ViewModels.HomeStocksVM
+
+
+<div class="main-container">
+    <div class="search-block">
+        <div class="select">
+
+            <select asp-controller="StocksShowController" asp-action="SortStocks" name="CATALOG_SECTION_SORT">
+                <option hidden>Сортировка</option>
+                <option asp-route-sortOrder="@ViewBag.NameSort">По алфавиту</option>
+                <option asp-route-sortOrder="@ViewBag.PriceSort">По цене</option>
+            </select>
+        </div>
+        <div class="container">
+    <div class="text-center">
+    <button class="btn btn-danger filter-button" data-filter="all">Все</button>
+    @foreach (var obj in Model.Category)
+    {
+    <button class="btn btn-outline-secondary filter-button" data-filter="@obj.NameCategory.Replace(' ','_')">
+    @obj.NameCategory
+    </button>
+    }
+    </div>
+    <br />
+    <div class="row">
+    @foreach (var prod in Model.Stock) //показываем каждый товар отдельно
+    {
+    <partial name="_IndividualProductCard" model="prod" />
+    }
+    </div>
+    </div>
